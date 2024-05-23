@@ -12,9 +12,9 @@ class DCNN(nn.Module):
     self.fc2 = nn.Linear(in_features=120, out_features=num_classes)
 
   def forward(self, x):
-    x = self.pool1(F.relu(self.conv1(x)))
-    x = self.pool2(F.relu(self.conv2(x)))
+    s1 = self.pool1(F.relu(self.conv1(x)))
+    s2 = self.pool2(F.relu(self.conv2(s1)))
     x = x.view(-1, 10*2*6)
-    x = F.relu(self.fc1(x))
-    x = F.softmax(self.fc2(x), dim=1)
-    return x
+    f1 = F.relu(self.fc1(s2))
+    output = F.softmax(self.fc2(f1), dim=1)
+    return output
