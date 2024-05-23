@@ -1,9 +1,10 @@
 import numpy as np
+from scipy import signal
 
 def get_raw_signals(index, data, time_length) :
   raw_signals = []
   for signals in data:
-    raw_signals.append(signals[index][:time_length])
+    raw_signals.append(signal.resample(signals[index], time_length))
     
   return raw_signals
 

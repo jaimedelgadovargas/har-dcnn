@@ -20,10 +20,9 @@ class ActivityImageDataset(Dataset):
   def __getitem__(self, idx):
     activity_image = utils.get_activity_image(self.signals, idx)
     label = self.labels[idx]
-    print(label)
-
-    activity_image = torch.tensor(activity_image, dtype=torch.float32)
+    activity_image = torch.tensor([activity_image[:36]], dtype=torch.float32)    
     label = torch.tensor(label, dtype=torch.long).flatten()
+    label = label[0] - 1
 
     return activity_image, label
   
